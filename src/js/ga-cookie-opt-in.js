@@ -15,6 +15,8 @@ const cookie_accept_btn_text = '同意して Cookie を受け入れる'
 const cookie_deny_btn_text = '同意しない'
 //Cookie の有効期限（1年 = 31536000秒）
 const cookie_max_age = 60 * 60 * 24 * 365;
+//CSSファイルの設置ディレクトリ
+const script_path = '/ga-cookie-opt-in-js-v2/dist/';
 
 //Cookie を取得
 const getCookie = (name) => {
@@ -84,7 +86,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // 通知バーのスタイル（パスは必要に応じて変更してください）
     const acceptcss = document.createElement('link');
-    acceptcss.href = '/ga-cookie-opt-in-js-v2/dist/ga-cookie-opt-in.min.css';
+    acceptcss.href = script_path + 'ga-cookie-opt-in.min.css';
     acceptcss.setAttribute('rel', 'stylesheet');
     document.head.appendChild(acceptcss);
 
