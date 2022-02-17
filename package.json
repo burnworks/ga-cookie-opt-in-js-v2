@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "build": "babel src/js --out-file dist/ga-cookie-opt-in.min.js && lessc --clean-css src/css/ga-cookie-opt-in.less dist/ga-cookie-opt-in.min.css"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.17.3",
+    "@babel/core": "^7.17.4",
+    "@babel/preset-env": "^7.16.11",
+    "babel-preset-minify": "^0.5.1",
+    "less": "^4.1.2",
+    "less-plugin-autoprefixer": "^2.1.0",
+    "less-plugin-clean-css": "^1.5.1"
+  }
+}
