@@ -131,13 +131,13 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   //各ボタンの取得
-  const acceptBtn = document.getElementById('name-ga-cookie-accept-btn');
-  const denyBtn = document.getElementById('name-ga-cookie-deny-btn');
-  const resetBtn = document.getElementById('name-ga-cookie-reset-btn');
+  const elm_accept_btn = document.getElementById('name-ga-cookie-accept-btn');
+  const elm_deny_btn = document.getElementById('name-ga-cookie-deny-btn');
+  const elm_reset_btn = document.getElementById('name-ga-cookie-reset-btn');
 
   //「同意する」ボタンのクリックでオプトイン（ga_cookie_opt_in = yes）
-  if (acceptBtn) {
-    acceptBtn.onclick = () => {
+  if (elm_accept_btn) {
+    elm_accept_btn.onclick = () => {
       setCookie('ga_cookie_opt_in', 'yes', { 'max-age': cookie_max_age });
       document.getElementById('name-ga-cookie-accept-bar').classList.add('state-remove');
       location.reload();
@@ -145,8 +145,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   //「同意しない」ボタンのクリックでオプトアウト（ga_cookie_opt_in = no）
-  if (denyBtn) {
-    denyBtn.onclick = () => {
+  if (elm_deny_btn) {
+    elm_deny_btn.onclick = () => {
       setCookie('ga_cookie_opt_in', 'no', { 'max-age': cookie_max_age });
       document.getElementById('name-ga-cookie-accept-bar').classList.add('state-remove');
       location.reload();
@@ -155,8 +155,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //「設定をリセット」ボタンのクリックで ga_cookie_opt_in を削除（リセットボタンは別途設置が必要）
   // <button class="module-ga-cookie-accept-btn" id="name-ga-cookie-reset-btn">Cookie の同意設定をリセット</button>
-  if (resetBtn) {
-    resetBtn.onclick = () => {
+  if (elm_reset_btn) {
+    elm_reset_btn.onclick = () => {
       deleteCookie('ga_cookie_opt_in');
       location.reload();
     };
