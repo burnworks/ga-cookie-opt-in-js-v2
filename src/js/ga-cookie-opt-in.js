@@ -139,6 +139,7 @@ window.addEventListener('DOMContentLoaded', () => {
     accept_text.appendChild(privacypolicy);
     btn.appendChild(accept_btn);
     btn.appendChild(deny_btn);
+    accept_inner.appendChild(accept_header);
     accept_inner.appendChild(accept_text);
     accept_inner.appendChild(btn);
     accept.appendChild(accept_inner);
