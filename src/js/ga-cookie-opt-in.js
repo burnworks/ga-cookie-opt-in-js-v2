@@ -3,7 +3,9 @@
 //設定
 //GA_ID は必ず実際に使用しているプロファイル ID に変更してください
 const GA_ID = 'G-XXXXXXXXXX';
-//本文
+//通知の見出し（デザイン上は不可視です）
+const privacypolicy_title = 'Cookie 使用に関する同意確認';
+//通知の本文
 const text = 'このサイトでは Google アナリティクスの Cookie（クッキー）を使用して、ユーザーのウェブサイト閲覧データを記録しています。 '
 //プライバシーポリシーへのリンクテキスト。本文の後ろに挿入されます
 const privacypolicy_text = '弊社の個人情報保護方針はこちらでご確認ください。'
@@ -15,7 +17,7 @@ const cookie_accept_btn_text = '同意して Cookie を受け入れる'
 const cookie_deny_btn_text = '同意しない'
 //Cookie の有効期限（1年 = 31536000秒）
 const cookie_max_age = 60 * 60 * 24 * 365;
-//CSSファイルの設置ディレクトリ
+//CSS ファイルの設置ディレクトリ
 const script_path = '/ga-cookie-opt-in-js-v2/dist/';
 
 //Cookie を取得
@@ -84,42 +86,56 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log('ga_cookie_opt_in = null');
     window[ga_disable] = true;
 
-    // 通知バーのスタイル（パスは必要に応じて変更してください）
+    //通知バーのスタイルを読み込み
     const acceptcss = document.createElement('link');
     acceptcss.href = script_path + 'ga-cookie-opt-in.min.css';
     acceptcss.setAttribute('rel', 'stylesheet');
     document.head.appendChild(acceptcss);
 
-    //通知の表示（テキストの内容やプライバシーポリシーへのリンクは必要に応じて変更してください）
+    //通知の外枠を生成
     const accept = document.createElement('div');
     accept.setAttribute('class', 'module-ga-cookie-accept-bar');
     accept.setAttribute('id', 'name-ga-cookie-accept-bar');
+    accept.setAttribute('role', 'dialog');
+    accept.setAttribute('aria-labelledby', 'name-ga-cookie-accept-bar-header');
 
     const accept_inner = document.createElement('div');
     accept_inner.setAttribute('class', 'module-ga-cookie-accept-bar-inner');
 
+    //通知のタイトルを生成（不可視）
+    const accept_header = document.createElement('h2');
+    accept_header.setAttribute('class', 'module-ga-cookie-accept-bar-header');
+    accept_header.setAttribute('id', 'name-ga-cookie-accept-bar-header');
+    accept_header.append(document.createTextNode(privacypolicy_title));
+
+    //通知の本文を生成
     const accept_text = document.createElement('p');
     accept_text.append(document.createTextNode(text));
 
+    //プライバシーポリシーへのリンクを生成
     const privacypolicy = document.createElement('a');
     privacypolicy.setAttribute('href', privacypolicy_link);
     privacypolicy.setAttribute('target', '_blank');
     privacypolicy.setAttribute('rel', 'noopener');
     privacypolicy.append(document.createTextNode(privacypolicy_text));
 
+    //ボタンの親要素を生成
     const btn = document.createElement('div');
     btn.setAttribute('class', 'module-ga-cookie-btn');
 
+    //同意するボタンを生成
     const accept_btn = document.createElement('button');
     accept_btn.setAttribute('class', 'module-ga-cookie-accept-btn');
     accept_btn.setAttribute('id', 'name-ga-cookie-accept-btn');
     accept_btn.append(document.createTextNode(cookie_accept_btn_text));
 
+    //同意しないボタンの生成
     const deny_btn = document.createElement('button');
     deny_btn.setAttribute('class', 'module-ga-cookie-accept-btn module-ga-cookie-deny-btn');
     deny_btn.setAttribute('id', 'name-ga-cookie-deny-btn');
     deny_btn.append(document.createTextNode(cookie_deny_btn_text));
 
+    //通知の HTML を組み立て
     accept_text.appendChild(privacypolicy);
     btn.appendChild(accept_btn);
     btn.appendChild(deny_btn);
@@ -127,6 +143,7 @@ window.addEventListener('DOMContentLoaded', () => {
     accept_inner.appendChild(btn);
     accept.appendChild(accept_inner);
 
+    //通知の HTML をウェブページの body 要素に追加
     document.body.appendChild(accept);
   }
 
