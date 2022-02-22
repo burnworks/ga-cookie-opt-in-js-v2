@@ -2,8 +2,8 @@
   "scripts": {
     "build": "babel src/js --out-file dist/ga-cookie-opt-in.min.js && lessc --clean-css src/css/ga-cookie-opt-in.less dist/ga-cookie-opt-in.min.css"
   },
-  "dependencies": {
-    "@babel/cli": "^7.17.3",
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
     "babel-preset-minify": "^0.5.1",

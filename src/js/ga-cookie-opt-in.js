@@ -148,27 +148,41 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(accept);
   }
 
-  //各ボタンの取得
+  //各要素の取得
+  const elm_accept_bar = document.getElementById('name-ga-cookie-accept-bar')
   const elm_accept_btn = document.getElementById('name-ga-cookie-accept-btn');
   const elm_deny_btn = document.getElementById('name-ga-cookie-deny-btn');
   const elm_reset_btn = document.getElementById('name-ga-cookie-reset-btn');
 
-  //「同意する」ボタンのクリックでオプトイン（ga_cookie_opt_in = yes）
-  if (elm_accept_btn) {
-    elm_accept_btn.onclick = () => {
-      setCookie('ga_cookie_opt_in', 'yes', { 'max-age': cookie_max_age });
-      document.getElementById('name-ga-cookie-accept-bar').classList.add('state-remove');
-      location.reload();
-    };
-  }
-
-  //「同意しない」ボタンのクリックでオプトアウト（ga_cookie_opt_in = no）
-  if (elm_deny_btn) {
-    elm_deny_btn.onclick = () => {
-      setCookie('ga_cookie_opt_in', 'no', { 'max-age': cookie_max_age });
-      document.getElementById('name-ga-cookie-accept-bar').classList.add('state-remove');
-      location.reload();
-    };
+  if (elm_accept_bar) {
+    //「同意する」ボタンのクリックでオプトイン（ga_cookie_opt_in = yes）
+    if (elm_accept_btn) {
+      elm_accept_btn.onclick = () => {
+        setCookie('ga_cookie_opt_in', 'yes', { 'max-age': cookie_max_age });
+        elm_accept_bar.classList.add('state-remove');
+        location.reload();
+      };
+    } else {
+      //何らかの理由で要素が取得できなかった
+      console.log('elm_accept_btn = ' + elm_accept_btn);
+    }
+    //「同意しない」ボタンのクリックでオプトアウト（ga_cookie_opt_in = no）
+    if (elm_deny_btn) {
+      elm_deny_btn.onclick = () => {
+        setCookie('ga_cookie_opt_in', 'no', { 'max-age': cookie_max_age });
+        elm_accept_bar.classList.add('state-remove');
+        location.reload();
+      };
+    } else {
+      //何らかの理由で要素が取得できなかった
+      console.log('elm_deny_btn = ' + elm_deny_btn);
+    }
+  } else if (cookie != null) {
+    //すでに「同意する」ボタンを押下済みなので通知が非表示だった
+    console.log('name-ga-cookie-accept-bar is invisible');
+  } else {
+    //何らかの理由で要素が取得できなかった
+    console.log('elm_accept_bar = ' + elm_accept_bar);
   }
 
   //「設定をリセット」ボタンのクリックで ga_cookie_opt_in を削除（リセットボタンは別途設置が必要）
@@ -178,6 +192,9 @@ window.addEventListener('DOMContentLoaded', () => {
       deleteCookie('ga_cookie_opt_in');
       location.reload();
     };
+  } else {
+    //「設定をリセット」ボタンが設置されていない
+    console.log('elm_reset_btn = ' + elm_reset_btn);
   }
 
 });
